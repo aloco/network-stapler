@@ -1,0 +1,16 @@
+{
+  "name": "networkstapler",
+  "version": "1.0.0",
+  "description": "microlib for better organized network client code",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "network",
+    "client",
+    "api"
+  ],
+  "author": "Andreas Tinoco Lobo",
+  "license": "MIT"
+}
