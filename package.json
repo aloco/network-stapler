@@ -8,7 +8,10 @@
     "url": "git://github.com/aloco/NetworkStapler.git"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "npm run clean && npm run tsc && mocha ./build/tests/setup.js -c -t 30000 -A",
+    "build": "npm run clean && npm run tsc",
+    "tsc": "./node_modules/typescript/bin/tsc",
+    "clean": "rimraf build"
   },
   "keywords": [
     "network",
@@ -18,11 +21,25 @@
   "author": "Andreas Tinoco Lobo",
   "license": "MIT",
   "dependencies": {
+    "es6-promise": "^4.1.0",
+    "isomorphic-fetch": "^2.2.1",
     "query-string": "^4.3.4",
     "rxjs": "^5.4.0",
     "url-join": "^2.0.2"
   },
   "devDependencies": {
+    "@types/chai": "^3.5.2",
+    "@types/chai-http": "0.0.30",
+    "@types/express": "^4.0.35",
+    "@types/mocha": "^2.2.41",
+    "chai": "^4.0.0",
+    "chai-http": "^3.0.0",
+    "express": "^4.15.3",
+    "lodash": "^4.17.4",
+    "mocha": "^3.4.2",
+    "require-dir": "^0.3.1",
+    "resolve-glob": "^0.1.8",
+    "rimraf": "^2.6.1",
     "tslint": "^5.3.2",
     "typescript": "^2.3.3"
   }

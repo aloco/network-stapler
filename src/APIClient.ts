@@ -1,5 +1,6 @@
 import * as queryString from "query-string";
 import urljoin = require("url-join");
+require("isomorphic-fetch");
 
 /**
  * defines a request target
@@ -97,7 +98,7 @@ export class APIClient {
         const query = queryString.stringify(target.queryParameters);
         let requestUrl = urljoin(this.options.baseUrl, target.url);
         if (query) {
-            requestUrl = urljoin(requestUrl, query);
+            requestUrl = urljoin(requestUrl, "?" + query);
         }
 
         const options = {
