@@ -2,7 +2,11 @@
   "name": "networkstapler",
   "version": "1.0.0",
   "description": "microlib for better organized network client code",
-  "main": "index.js",
+  "main": "./build/index.js",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/aloco/NetworkStapler.git"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -12,5 +16,14 @@
     "api"
   ],
   "author": "Andreas Tinoco Lobo",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "query-string": "^4.3.4",
+    "rxjs": "^5.4.0",
+    "url-join": "^2.0.2"
+  },
+  "devDependencies": {
+    "tslint": "^5.3.2",
+    "typescript": "^2.3.3"
+  }
 }
