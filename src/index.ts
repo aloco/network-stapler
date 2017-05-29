@@ -1,1 +1,2 @@
-require("es6-promise").polyfill();
+export { APIClient, IAPIClientOptions, IAPITarget, ITypedAPITarget, createAPIClient } from "./APIClient";
+export { AuthAPIClient as AuthAPIClient, ICredentialsHandler, createAuthAPIClient } from "./AuthAPIClient";

@@ -1,6 +1,13 @@
 import * as queryString from "query-string";
 import urljoin = require("url-join");
-require("isomorphic-fetch");
+
+
+export interface IAPIClientPlugin {
+
+    before: (requestPromise: Promise<any>) => Promise<any>;
+    after: (requestPromise: Promise<any>) => Promise<any>;
+
+}
 
 /**
  * defines a request target
