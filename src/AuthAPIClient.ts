@@ -138,7 +138,7 @@ export class AuthAPIClient<C> {
     }
 }
 
-export function createAuthAPIClient<T>(options: IAPIClientOptions, credentialsHandler: ICredentialsHandler<T>) {
+export function createAuthAPIClient<C>(options: IAPIClientOptions, credentialsHandler: ICredentialsHandler<C>) {
     return new AuthAPIClient(options, credentialsHandler);
 }
 
