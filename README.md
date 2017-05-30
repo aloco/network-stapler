@@ -24,28 +24,28 @@ So to not end up in a single file full of network requests or single requests sp
 const UserAPI = {
 	login(username: string, password: string): ITypedAPITarget<IUser> => {
 		return {
-            url: "api/v1/login",
-            method: "POST",
-            body: {
-                username,
-                password
-            },
-            parse: (json) => {
-            	if (json.accesstoken && json.userid) {
-                	return json as IUser;
-            	} else {
-                  	throw new Error("invalid response");
-            	}
-            }
-        };
+			url: "api/v1/login",
+			method: "POST",
+			body: {
+				username,
+				password
+			},
+			parse: (json) => {
+				if (json.accesstoken && json.userid) {
+					return json as IUser;
+				} else {
+					throw new Error("invalid response");
+				}
+			}
+		};
 	},
 	
 	logout(): IAPITarget => {
-    	return {
-      		url: "api/v1/logout",
-      		method: "GET",
-      	}
-    }
+		return {
+			url: "api/v1/logout",
+			method: "GET",
+		}
+	}
 }
 ```
 
@@ -71,20 +71,20 @@ const target: ITypedAPITarget<IUser> = UserAPI.login("aloco90", "awesomepassword
 client.request(target).then(result => {
 	// result is the plain response object
 }).catch(error => {
-  	// something went wrong
+	// something went wrong
 });
 
 client.requestJSON(target).then(result => {
 	// result is the response body as json
 }).catch(error => {
-  	// something went wrong
+	// something went wrong
 });
 
 client.requestType(target).then(result => {
 	// result is the typed response body
 	// in this case an implementation of `IUser`
 }).catch(error => {
-  	// something went wrong
+	// something went wrong
 });
 ```
 

@@ -7,7 +7,7 @@ import chai = require("chai");
 // import chaiAsPromised = require("chai-as-promised");
 import requireDir = require("require-dir");
 
-
+require("isomorphic-fetch");
 
 import chaiHttp = require("chai-http");
 // Setup chai plugins
@@ -19,12 +19,6 @@ before(function (done) {
     server.start();
     done();
 });
-
-
-
-// afterEach(function () {
-
-// });
 
 
 // app related tests...

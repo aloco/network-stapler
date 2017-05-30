@@ -1,12 +1,9 @@
 {
   "name": "@aaa/networkstapler",
   "version": "1.0.5",
-  "description": "microlib for better organized network client code",
+  "description": "microlib for organized client side network code",
   "main": "build/index.js",
   "typings": "build/index.d.ts",
-  "publishConfig": {
-    "registry": "https://npm.allaboutapps.at"
-  },
   "repository": {
     "type": "git",
     "url": "git://github.com/aloco/NetworkStapler.git"
@@ -15,8 +12,7 @@
     "test": "npm run clean && npm run tsc && mocha ./build/tests/setup.js -c -t 30000 -A",
     "build": "npm run clean && npm run tsc",
     "tsc": "./node_modules/typescript/bin/tsc",
-    "clean": "rimraf build",
-    "prepublish": "npm run build"
+    "clean": "rimraf build"
   },
   "keywords": [
     "network",
@@ -26,8 +22,8 @@
   "author": "Andreas Tinoco Lobo",
   "license": "MIT",
   "dependencies": {
+    "@types/core-js": "^0.9.41",
     "query-string": "^4.3.4",
-    "rxjs": "^5.4.0",
     "url-join": "^2.0.2"
   },
   "devDependencies": {
