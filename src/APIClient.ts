@@ -4,8 +4,7 @@ import urljoin = require("url-join");
 
 export interface IAPIClientPlugin {
 
-    before: (requestPromise: Promise<any>) => Promise<any>;
-    after: (requestPromise: Promise<any>) => Promise<any>;
+    modify: (requestPromise: Promise<any>) => Promise<any>;
 
 }
 
@@ -77,6 +76,8 @@ export interface IAPIClientOptions {
 export class APIClient {
 
     options: IAPIClientOptions;
+
+    plugin: IAPIClientPlugin;
 
     constructor(options: IAPIClientOptions) {
         this.options = options;
@@ -160,10 +161,12 @@ export class APIClient {
      * @param target
      */
     requestType<T>(target: ITypedAPITarget<T>): Promise<T> {
-        return this.requestJSON(target)
+        const requestPromise = this.requestJSON(target)
             .then(json => {
                 return target.parse(json);
             });
+
+        return this.plugin.modify(requestPromise);
     }
 }
 
