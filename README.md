@@ -88,6 +88,10 @@ client.requestType(target).then(result => {
 });
 ```
 
+## Todos
+- [ ] documentation of `IAPIClientOptions`
+- [ ] full example
+- [ ] more unit tests
 
 
 ## Contributing
