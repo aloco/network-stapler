@@ -2,12 +2,6 @@ import * as queryString from "query-string";
 import urljoin = require("url-join");
 
 
-export interface IAPIClientPlugin {
-
-    modify: (requestPromise: Promise<any>) => Promise<any>;
-
-}
-
 /**
  * defines a request target
  */
@@ -76,8 +70,6 @@ export interface IAPIClientOptions {
 export class APIClient {
 
     options: IAPIClientOptions;
-
-    plugin: IAPIClientPlugin;
 
     constructor(options: IAPIClientOptions) {
         this.options = options;
@@ -161,12 +153,10 @@ export class APIClient {
      * @param target
      */
     requestType<T>(target: ITypedAPITarget<T>): Promise<T> {
-        const requestPromise = this.requestJSON(target)
+        return this.requestJSON(target)
             .then(json => {
                 return target.parse(json);
             });
-
-        return this.plugin.modify(requestPromise);
     }
 }
 
