@@ -88,7 +88,18 @@ client.requestType(target).then(result => {
 });
 ```
 
+## Installation
+
+´network-stapler´ is available on [npm](https://www.npmjs.com/package/network-stapler)
+
+```shell
+npm install network-stapler
+```
+
+
+
 ## Todos
+
 - [ ] documentation of `IAPIClientOptions`
 - [ ] full example
 - [ ] more unit tests
