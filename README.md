@@ -22,7 +22,7 @@ So to not end up in a single file full of network requests or single requests sp
 
 ```typescript
 const UserAPI = {
-    login(username: string, password: string): ITypedAPITarget<IUser> => {
+    login(username: string, password: string): ITypedAPITarget<IUser> {
         return {
             url: "api/v1/login",
             method: "POST",
@@ -30,7 +30,7 @@ const UserAPI = {
                 username,
                 password
             },
-            parse: (json) => {
+            parse: (json) {
                 if (json.accesstoken && json.userid) {
                     return json as IUser;
                 } else {
@@ -40,7 +40,7 @@ const UserAPI = {
         };
     },
     
-    logout(): IAPITarget => {
+    logout(): IAPITarget {
         return {
             url: "api/v1/logout",
             method: "GET",
