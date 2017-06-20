@@ -26,7 +26,8 @@ export class MockServer {
         // url must be equal to API.contactsAmountOfList
         this.app.get("/api/v1/return-error-status-code-400", (req, res, next) => {
             res.header("Content-Type", "application/json");
-            res.sendStatus(400);
+            res.statusCode = 400;
+            res.send({ error: "something went wrong "});
         });
 
         this.app.get("/api/v1/return-error-status-code-199", (req, res, next) => {
