@@ -113,9 +113,7 @@ export class APIClient {
                     if (response.status >= 200 && response.status < 400) {
                         return response;
                     }
-
                     throw new APIClientStatusCodeError(response, response.status);
-
                 } else {
                     return response;
                 }
@@ -140,10 +138,17 @@ export class APIClient {
                 }, this.options.stubResponseTime);
             });
         } else {
-            return this.request(target)
-                .then(response => {
-                    return response.json();
-                });
+            return this.request(target).then(response => {
+                return response.json();
+            }).catch(e => {
+                // transform error response into json
+                if (e instanceof APIClientStatusCodeError) {
+                    return e.response.json().then(json => {
+                        throw new APIClientStatusCodeError(json, e.statusCode);
+                    });
+                }
+                throw e; // rethrow unknown error
+            });
         }
     }
 
