@@ -9,7 +9,8 @@ describe("should test APIClient options", function () {
 
         const options: IAPIClientOptions = {
             baseUrl: mockServer.mockServerBaseUrl,
-            throwOnErrorStatusCodes: true
+            throwOnErrorStatusCodes: true,
+            defaultEncodeBody: JSON.stringify
         };
 
         const client = new APIClient(options);
@@ -29,7 +30,8 @@ describe("should test APIClient options", function () {
     it("should throw when encountering statuscode 400 and transform error to json when using requestJSON", function (done) {
         const options: IAPIClientOptions = {
             baseUrl: mockServer.mockServerBaseUrl,
-            throwOnErrorStatusCodes: true
+            throwOnErrorStatusCodes: true,
+            defaultEncodeBody: JSON.stringify
         };
 
         const client = new APIClient(options);

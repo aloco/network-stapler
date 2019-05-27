@@ -29,7 +29,13 @@ export interface IAPITarget {
     /**
      * header of request
      */
-    headers?: object;
+    headers?: HeadersInit;
+
+    /**
+     * specify body encoding. e.g. use JSON.stringify for json payloads and FormData for multipart uploads
+     */
+    encodeBody?: (body: object) => any;
+
 }
 
 /**
@@ -41,6 +47,7 @@ export interface ITypedAPITarget<T> extends IAPITarget {
      */
     parse: (data: object) => T;
 }
+
 export interface IAPIClientOptions {
     /**
      * base url of remote service
@@ -49,7 +56,7 @@ export interface IAPIClientOptions {
     /**
      * used to modify or add header before a request is executed (like add authorization headers)
      */
-    injectHeaders?: (target: IAPITarget, headers: object) => object;
+    defaultHeaders?: (target: IAPITarget) => HeadersInit;
     /**
      * indicates if client should mock all responses 
      */
@@ -62,6 +69,12 @@ export interface IAPIClientOptions {
      * throws status codes < 200 || > 399 as APIClientError
      */
     throwOnErrorStatusCodes?: boolean;
+
+    /**
+     * function used to encode body of requests
+     * can be overwritten by setting an encoding function on IAPITarget
+     */
+    defaultEncodeBody: (target: IAPITarget) => any;
 }
 
 /**
@@ -86,13 +99,22 @@ export class APIClient {
      */
     request(target: IAPITarget): Promise<Response> {
 
-        let headers = target.headers;
-        if (!headers) {
-            headers = {};
+        // set default empty headers if not specified in target
+        if (!target.headers) {
+            target.headers = {};
         }
 
-        if (this.options.injectHeaders) {
-            headers = this.options.injectHeaders(target, headers);
+        // set default body encoding function if not specified in target
+        if (!target.encodeBody) {
+            target.encodeBody = (_: object) => {
+                return this.options.defaultEncodeBody(target);
+            }
+        }
+
+        let headers = target.headers;
+
+        if (this.options.defaultHeaders) {
+            headers = this.options.defaultHeaders(target);
         }
 
         const query = queryString.stringify(target.queryParameters);
@@ -101,11 +123,12 @@ export class APIClient {
             requestUrl = urljoin(requestUrl, "?" + query);
         }
 
-        const options = {
+        const options: RequestInit = {
             method: target.method || "GET",
-            body: JSON.stringify(target.body),
+            body: typeof target.body !== "undefined" ? target.encodeBody(target.body) || null : null,
             headers: headers
         };
+
 
         return fetch(requestUrl, options)
             .then(response => {
